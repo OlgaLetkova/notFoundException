@@ -1,14 +1,23 @@
 package ru.netology.manager;
 
-import ru.netology.domain.PurchaseItem;
+import ru.netology.domain.Movie;
 
-public class CartManager {
-    private PurchaseItem[] items = new PurchaseItem[0];
+public class MovieManager {
+    private int requestSize = 10;
 
-    public void add(PurchaseItem item) {
+    public MovieManager() {
+    }
+
+    public MovieManager(int requestSize) {
+        this.requestSize = requestSize;
+    }
+
+    private Movie[] items = new Movie[0];
+
+    public void add(Movie item) {
         // создаём новый массив размером на единицу больше
         int length = items.length + 1;
-        PurchaseItem[] tmp = new PurchaseItem[length];
+        Movie[] tmp = new Movie[length];
         // itar + tab
         // копируем поэлементно
         // for (int i = 0; i < items.length; i++) {
@@ -21,8 +30,8 @@ public class CartManager {
         items = tmp;
     }
 
-    public PurchaseItem[] getAll() {
-        PurchaseItem[] result = new PurchaseItem[items.length];
+    public Movie[] getAll() {
+        Movie[] result = new Movie[items.length];
         // перебираем массив в прямом порядке
         // но кладём в результаты в обратном
         for (int i = 0; i < result.length; i++) {
@@ -32,12 +41,28 @@ public class CartManager {
         return result;
     }
 
-    // наивная реализация
+
+    public Movie[] getLast() {
+        int length = 0;
+        if (items.length >= this.requestSize) {
+            length = this.requestSize;
+        } else {
+            length = items.length;
+        }
+        Movie[] movies = new Movie[length];
+        for (int i = 0; i < movies.length; i++) {
+            int index = items.length - i - 1;
+            movies[i] = items[index];
+        }
+        return movies;
+    }
+
+    /*// наивная реализация
     public void removeById(int id) {
         int length = items.length - 1;
-        PurchaseItem[] tmp = new PurchaseItem[length];
+        Movie[] tmp = new Movie[length];
         int index = 0;
-        for (PurchaseItem item : items) {
+        for (Movie item : items) {
             if (item.getId() != id) {
                 tmp[index] = item;
                 index++;
@@ -45,5 +70,5 @@ public class CartManager {
         }
         // меняем наши элементы
         items = tmp;
-    }
+    }*/
 }
