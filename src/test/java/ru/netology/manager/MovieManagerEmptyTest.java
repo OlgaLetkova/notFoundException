@@ -5,12 +5,12 @@ import ru.netology.domain.Movie;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MovieManagerTestEmpty {
+public class MovieManagerEmptyTest {
 
     @Test
     public void shouldAddToEmptyAfisha() {
         MovieManager manager = new MovieManager();
-        Movie first = new Movie(1,"number-one", "Number one", "image URL", "comedy", true);
+        Movie first = new Movie(1, "number-one", "Number one", "image URL", "comedy", true);
         manager.add(first);
         Movie[] actual = manager.getAll();
         Movie[] expected = new Movie[]{first};
@@ -18,12 +18,14 @@ public class MovieManagerTestEmpty {
     }
 
     @Test
-    public void shouldGetEmptyAfisha(){
+    public void shouldGetEmptyAfisha() {
         MovieManager manager = new MovieManager();
         Movie[] actual = manager.getAll();
         Movie[] expected = new Movie[0];
         assertArrayEquals(expected, actual);
     }
+}
+
 
 
     /*@Test
@@ -64,5 +66,3 @@ public class MovieManagerTestEmpty {
 
         assertArrayEquals(expected, actual);
     }*/
-
-}

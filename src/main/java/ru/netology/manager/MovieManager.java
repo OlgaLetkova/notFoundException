@@ -41,7 +41,6 @@ public class MovieManager {
         return result;
     }
 
-
     public Movie[] getLast() {
         int length = 0;
         if (items.length >= this.requestSize) {
