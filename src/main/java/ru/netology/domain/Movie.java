@@ -1,8 +1,10 @@
 package ru.netology.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
-    @AllArgsConstructor
+@AllArgsConstructor
+    @Data
 
     public class Movie {
         private int id;

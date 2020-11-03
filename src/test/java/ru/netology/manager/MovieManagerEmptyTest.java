@@ -1,16 +1,30 @@
 package ru.netology.manager;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Movie;
+import ru.netology.repository.MovieRepository;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+
+@ExtendWith(MockitoExtension.class)
 
 public class MovieManagerEmptyTest {
-
+    @Mock
+    private MovieRepository repository;
+    @InjectMocks
+    private MovieManager manager;
+    Movie first = new Movie(1, "number-one", "Number one", "image URL", "comedy", true);
     @Test
     public void shouldAddToEmptyAfisha() {
-        MovieManager manager = new MovieManager();
-        Movie first = new Movie(1, "number-one", "Number one", "image URL", "comedy", true);
+        doNothing().when(repository).save(first);
+        Movie[] returned = new Movie[]{first};
+        doReturn(returned).when(repository).findAll();
         manager.add(first);
         Movie[] actual = manager.getAll();
         Movie[] expected = new Movie[]{first};
@@ -19,7 +33,8 @@ public class MovieManagerEmptyTest {
 
     @Test
     public void shouldGetEmptyAfisha() {
-        MovieManager manager = new MovieManager();
+        Movie[] returned = new Movie[0];
+        doReturn(returned).when(repository).findAll();
         Movie[] actual = manager.getAll();
         Movie[] expected = new Movie[0];
         assertArrayEquals(expected, actual);

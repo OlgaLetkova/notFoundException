@@ -1,9 +1,11 @@
 package ru.netology.manager;
 
 import ru.netology.domain.Movie;
+import ru.netology.repository.MovieRepository;
 
 public class MovieManager {
     private int requestSize = 10;
+    private MovieRepository repository;
 
     public MovieManager() {
     }
@@ -12,28 +14,22 @@ public class MovieManager {
         this.requestSize = requestSize;
     }
 
-    private Movie[] items = new Movie[0];
+
+    public MovieManager(MovieRepository repository) {
+        this.repository = repository;
+    }
+
+    public void setRequestSize(int requestSize) {
+        this.requestSize = requestSize;
+    }
 
     public void add(Movie item) {
-        // создаём новый массив размером на единицу больше
-        int length = items.length + 1;
-        Movie[] tmp = new Movie[length];
-        // itar + tab
-        // копируем поэлементно
-        // for (int i = 0; i < items.length; i++) {
-        //   tmp[i] = items[i];
-        // }
-        System.arraycopy(items, 0, tmp, 0, items.length);
-        // кладём последним наш элемент
-        int lastIndex = tmp.length - 1;
-        tmp[lastIndex] = item;
-        items = tmp;
+        this.repository.save(item);
     }
 
     public Movie[] getAll() {
+        Movie[] items = this.repository.findAll();
         Movie[] result = new Movie[items.length];
-        // перебираем массив в прямом порядке
-        // но кладём в результаты в обратном
         for (int i = 0; i < result.length; i++) {
             int index = items.length - i - 1;
             result[i] = items[index];
@@ -42,6 +38,7 @@ public class MovieManager {
     }
 
     public Movie[] getLast() {
+        Movie[] items = this.repository.findAll();
         int length = 0;
         if (items.length >= this.requestSize) {
             length = this.requestSize;
@@ -55,19 +52,8 @@ public class MovieManager {
         }
         return movies;
     }
-
-    /*// наивная реализация
-    public void removeById(int id) {
-        int length = items.length - 1;
-        Movie[] tmp = new Movie[length];
-        int index = 0;
-        for (Movie item : items) {
-            if (item.getId() != id) {
-                tmp[index] = item;
-                index++;
-            }
-        }
-        // меняем наши элементы
-        items = tmp;
-    }*/
 }
+
+
+
+
