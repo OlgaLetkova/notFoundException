@@ -3,6 +3,7 @@ package ru.netology.repository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Movie;
+import ru.netology.domain.NotFoundException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,14 +35,10 @@ class MovieRepositoryWithOneMovieTest {
     }
 
     @Test
-    public void shouldNotRemoveIfNotExists() {
+    public void shouldExceptRemoveIfNotExists() {
         int idToRemove = 4;
-        repository.removeById(idToRemove);
 
-        Movie[] actual = repository.findAll();
-        Movie[] expected = new Movie[]{first};
-
-        assertArrayEquals(expected, actual);
+        assertThrows(NotFoundException.class,() ->repository.removeById(idToRemove));
     }
 
     @Test

@@ -35,29 +35,3 @@ public class MovieManagerWithOneMovieTest {
         assertArrayEquals(expected, actual);
     }
 }
-
-
-
-  /*  @Test
-    public void shouldRemoveIfExists() {
-        int idToRemove = 1;
-        manager.removeById(idToRemove);
-
-        Movie[] actual = manager.getAll();
-        Movie[] expected = new Movie[]{third, second};
-
-//    assertEquals(expected, actual);
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldNotRemoveIfNotExists() {
-        int idToRemove = 4;
-
-        manager.removeById(idToRemove);
-
-        Movie[] actual = manager.getAll();
-        Movie[] expected = new Movie[]{third, second, first};
-
-        assertArrayEquals(expected, actual);
-    }*/

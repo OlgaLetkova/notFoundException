@@ -1,6 +1,7 @@
 package ru.netology.repository;
 
 import ru.netology.domain.Movie;
+import ru.netology.domain.NotFoundException;
 
 public class MovieRepository {
 
@@ -39,14 +40,18 @@ public class MovieRepository {
         int length = items.length - 1;
         Movie[] tmp = new Movie[length];
         int index = 0;
-        for (Movie item : items) {
-            if (item.getId() != id) {
-                tmp[index] = item;
-                index++;
+        Movie result = findById(id);
+        if (result == null) {
+            throw new NotFoundException("Element with id: " + id + " not found");
+        } else {
+            for (Movie item : items) {
+                if (item.getId() != id) {
+                    tmp[index] = item;
+                    index++;
+                }
             }
+            items = tmp;
         }
-        // меняем наши элементы
-        items = tmp;
     }
 
     public void removeAll() {
